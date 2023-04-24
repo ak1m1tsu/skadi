@@ -1,9 +1,9 @@
 version: '3.7'
+
 services:
-  redis:
-    image: redis:latest
   server:
     build:
-      context: ./
-    depends_on:
-      - redis
+      context: .
+      dockerfile: ./.docker/server/Dockerfile
+    ports:
+      - 8090:8090
