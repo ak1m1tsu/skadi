@@ -1,9 +1,22 @@
 version: '3.7'
 
 services:
-  server:
-    build:
-      context: .
-      dockerfile: ./.docker/server/Dockerfile
+  db:
+    image: redis:alpine
+    restart: always
     ports:
-      - 8090:8090
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - db:/data
+  # server:
+  #   build:
+  #     context: .
+  #     dockerfile: ./.docker/server/Dockerfile
+  #   ports:
+  #     - 8090:8090
+  #   depends_on:
+  #     - db
+volumes:
+  db:
+    driver: local
